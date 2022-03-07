@@ -6,6 +6,7 @@ let abc = ['Q','W','E','R','T','Y','U','I','O','P','A','S','D','F','G','H','J','
 let v = 1;
 let blean = false;
 let delete_k;
+let btn_play = true;
 
 function write_(letra){
     if(blean == true){
@@ -41,20 +42,20 @@ function comprobar(){
                     document.getElementById('try'.concat(x).concat(v)).style = 'background-color:#67b956; border: solid 2px #67b956;';
                     if(win == 6){
                         blean = false;
-                        //fin(true);
-                        alert('Has ganado');
+                        fin(true);
                         // Juego ganado
                     }
                 }else{
                     for(let k=0; k<try_.length; k++){
                         if(try_[i] == wordFinal[k]){
                             document.getElementById('try'.concat(x).concat(v)).style = 'background-color:#d4d668; border: solid 2px #d4d668;';
+                        }else{
+                            document.getElementById('try'.concat(x).concat(v)).style = 'background-color:#212121; border: solid 2px #212121;';
                         }
                     }
                     if(v == 6 && i == 4){
                         blean = false;
-                        //fin(false);
-                        alert('Has perdido');
+                        fin(false);
                         break;
                         // Juego perdido
                     }
@@ -72,6 +73,7 @@ function comprobar(){
 }
 
 function play_(){
+    document.getElementById('main3').style = 'display: none;';
     document.getElementById('main1').style = 'display: none;';
     document.getElementById('footer1').style = 'display: none;';
     document.getElementById('resumen').style = 'display: none;';
@@ -80,31 +82,29 @@ function play_(){
 }
 
 function fin(exito){
+
+    document.getElementById('main1').style = 'display: none;';
+    document.getElementById('main2').style = 'display: none;';
+    document.getElementById('footer1').style = 'display: none;';
+    document.getElementById('resumen').style = 'display: none;';
+    document.getElementById('main3').style = 'display: block;';
+    
     if(exito == true){
-
-        for(let i=1; i<7; i++){
-            for(let j=1; j<6; j++){
-                document.getElementById('try'.concat(j).concat(i)).style = 'background-color:#67b956; border: solid 2px #67b956;';
-            }
-        }
-        window.location.href = "./subpags/replay.html";
-
+        document.getElementById('exito').innerHTML = 'Congratulations!';
     }else{
-        window.location.href = "./subpags/replay.html";
+        document.getElementById('exito').innerHTML = 'You almost got it!';
     }
 }
 
-function playAgain(){
-    window.location.href = "../index.html";
-}
-
 function newGame(){
-
+    document.getElementById('main3').style = 'display: none;';
+    document.getElementById('play_').style = 'display: none;';
     document.getElementById('main2').style = 'display: none;';
     document.getElementById('main1').style = 'display: flex;';
     document.getElementById('footer1').style = 'display: block;';
     document.getElementById('resumen').style = 'display: block;';
 
+    
     clean();
     generarClave();
 
@@ -152,5 +152,13 @@ function generarClave(){
         }
 
         //alert(clave);
+    }
+}
+
+function redirect(where){
+    if(where == 'twitter'){
+        window.location.href = "https://twitter.com/auto_token";
+    }else if(where == 'whitepaper'){
+        window.location.href = "https://unlockpadlock.gitbook.io/unlock-padlock/";
     }
 }
