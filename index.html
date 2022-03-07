@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,25 +14,25 @@
     <header>
         <div style="display: flex; margin-top: 2vh; margin-bottom: 2vh;">
             <div style="margin-left: auto;">
-                <img class="ico" src="https://img.icons8.com/fluency-systems-regular/50/000000/news.png"/>
-                <img class="ico" src="https://img.icons8.com/fluency-systems-regular/50/000000/idea.png"/>
-                <img class="ico" src="https://img.icons8.com/fluency-systems-regular/50/000000/twitter.png"/>
+                <img onclick="redirect('whitepaper')" class="ico" src="https://img.icons8.com/fluency-systems-regular/50/000000/news.png"/>
+                <img onclick="alert('comprar una pista, proximamente')" class="ico" src="https://img.icons8.com/fluency-systems-regular/50/000000/idea.png"/>
+                <img onclick="redirect('twitter')" class="ico" src="https://img.icons8.com/fluency-systems-regular/50/000000/twitter.png"/>
             </div>
             <span class="title">Unlock Padlock</span>
             <div style="margin-right: auto;">
-                <img class="ico" src="https://img.icons8.com/fluency-systems-regular/50/000000/key.png"/>
-                <img class="ico" src="https://img.icons8.com/fluency-systems-regular/50/000000/support.png"/>
-                <img class="ico" src="https://img.icons8.com/fluency-systems-regular/48/000000/settings.png"/>
+                <img onclick="" class="ico" src="https://img.icons8.com/fluency-systems-regular/50/000000/key.png"/>
+                <img onclick="" class="ico" src="https://img.icons8.com/fluency-systems-regular/50/000000/support.png"/>
+                <img onclick="" class="ico" src="https://img.icons8.com/fluency-systems-regular/48/000000/settings.png"/>
             </div>
         </div>
         <hr style="margin-bottom: 2vh;">
         <span id="resumen" class="tutorial">Multiply your investment when opening the lock, if you hit the letter it is marked yellow and if you hit<br> the letter and position in green, mark all in green to win. Good luck!</span>
     </header>
 
-    <main id="main1">
+    <main id="main1" style="">
         <table class="table1">
             <tr>
-                <button class="y" onclick="play_()">Play</button>
+                <button id="play_" class="y" onclick="play_()">Play</button>
                 <td class="td1" id="try11"></td><td class="td1" id="try21"></td><td class="td1" id="try31"></td><td class="td1" id="try41"></td><td class="td1" id="try51"></td>
                 <td class="x">x100</td>
             </tr>
@@ -83,23 +84,25 @@
 
 <!-- Finish -->
 
-    <main id="main3" style="display: flex; text-align: center; display: none;">
-        <div style="padding-left: 15%; width: 35%; padding-top: 10vh;">
-            <div>
-                <input class="claim" type="text" placeholder="0.000543" style="margin-bottom: 5vh; padding: 10px;">
-                <button class="pay" onclick="generarClave()">Play</button>
-            </div>
-            <ul>
-                <li>Multiply your investment by opening the lock!</li>
-                <li>Mark all the boxes in green as soon as possible to get the most benefit.</li>
-                <li><span class="green">Green:</span> the letter is, and the position is correct.</li>
-                <li><span class="yellow">Yellow:</span> the letter is, but not in the correct position.</li>
-                <li>Good luck!</li>
-            </ul>
-        </div>
-        <div style="padding-right: 15%; width: 35%;">
-            <img src="../img/up.png" alt="">
-        </div>
+    <main id="main3" style="text-align: center; display: none;">
+        <ul style="margin-left: auto; margin-right: auto; width: 35%; text-align: center; padding:0; padding-top: 1vh;">
+            <li id="exito" class="li-reward" style="font-size: 55px;">Congratulations!</li>
+            <li class="li-reward">Claim your reward</li>
+            <li class="li-reward">
+                <span class="bnb">0.0009 BNB</span>
+                <button class="pay" onclick="claim()">Claim</button>
+            </li>
+            <li class="li-reward">Another try?</li>
+            <li class="li-reward"><button class="pay" onclick="play_()">Go</button></li>
+            <li class="li-reward">Share your game on social networks.</li>
+            <li class="li-reward">
+                <img src="https://img.icons8.com/fluency/48/000000/facebook.png"/>
+                <img src="https://img.icons8.com/fluency/48/000000/instagram-new.png"/>
+                <img src="https://img.icons8.com/fluency/48/000000/twitter.png"/>
+                <img src="https://img.icons8.com/fluency/50/000000/whatsapp.png"/>
+                <img src="https://img.icons8.com/fluency/50/000000/reddit.png"/>
+            </li>
+        </ul>
     </main>
 
     <footer id="footer1">
@@ -143,3 +146,4 @@
     </footer>
 </body>
 </html>
+
