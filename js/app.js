@@ -1,4 +1,5 @@
 
+
 let wordFinal = ['','','','',''];
 let try_ = ['','','','',''];
 let abc = ['Q','W','E','R','T','Y','U','I','O','P','A','S','D','F','G','H','J','K','L','Ñ','Z','X','C','V','B','N','M'];
@@ -36,7 +37,11 @@ function comprobar(){
         }else{
             let x = 1;
             let win=1;
+
             for(let i=0; i<try_.length; i++){
+
+                document.getElementById('try'.concat(x).concat(v)).style = 'background-color:#212121; border: solid 2px #212121;';
+
                 if(try_[i] == wordFinal[i]){
                     win++;
                     document.getElementById('try'.concat(x).concat(v)).style = 'background-color:#67b956; border: solid 2px #67b956;';
@@ -46,11 +51,10 @@ function comprobar(){
                         // Juego ganado
                     }
                 }else{
+
                     for(let k=0; k<try_.length; k++){
                         if(try_[i] == wordFinal[k]){
                             document.getElementById('try'.concat(x).concat(v)).style = 'background-color:#d4d668; border: solid 2px #d4d668;';
-                        }else{
-                            document.getElementById('try'.concat(x).concat(v)).style = 'background-color:#212121; border: solid 2px #212121;';
                         }
                     }
                     if(v == 6 && i == 4){
