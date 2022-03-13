@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./styles/styles-index.css">
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sha256-js-tools@1.0.2/lib/sha256.min.js"></script>
     <script src="./js/app.js"></script>
 </head>
 <body>
@@ -64,11 +65,12 @@
     <main id="main2" style="display: flex; display: none;">
         <div style="padding-left: 15%; width: 35%; text-align: center; padding-top: 1vh;">
             <ul>
-                <li><button style="width: 8vw; height: 4vh; margin-bottom: 4vh;">Connect Wallet</button></li>
-                <li>Amount of BNB between 0.001 to 0.25</li>
-                <li>
-                    <input class="claim" type="text" placeholder="0.001" style="margin-bottom: 5vh; padding: 10px;">
-                    <button class="pay" onclick="newGame()">Go</button>
+                <li><button id="connect" onclick="Connect()" class="c_wallet">Connect Wallet</button></li>
+                <li id="walllet">da</li><!--<span id="connected" style="display:none;">Connect Wallet</span>-->
+                <li id="buy" style="display:none;">Amount of BNB between 0.010 to 0.15</li>
+                <li style="padding:40px;">
+                    <input id="buy1" style="display:none;" class="claim" type="text" placeholder="Min 0.010 BNB | Max 0.15 BNB" style="margin-bottom: 5vh; padding: 10px;" value="">
+                    <button id="buy2" style="display:none;" class="pay" onclick="bet()">Go</button>
                 </li>
                 <li>Multiply your investment by opening the lock!</li>
                 <li>Mark all the boxes in green as soon as possible to get the most benefit.</li>
@@ -89,8 +91,8 @@
             <li id="exito" class="li-reward" style="font-size: 55px;">Congratulations!</li>
             <li class="li-reward">Claim your reward</li>
             <li class="li-reward">
-                <span class="bnb">0.0009 BNB</span>
-                <button class="pay" onclick="claim()">Claim</button>
+                <span class="bnb" id="bnb_claim">0 BNB</span>
+                <button class="pay" onclick="pago()">Claim</button>
             </li>
             <li class="li-reward">Another try?</li>
             <li class="li-reward"><button class="pay" onclick="play_()">Go</button></li>
@@ -129,10 +131,10 @@
                 <button onclick="write_('J')">J</button>
                 <button onclick="write_('K')">K</button>
                 <button onclick="write_('L')">L</button>
-                <button onclick="write_('Ñ')">Ñ</button>
+                <button onclick="write_('-')">Ñ</button>
             </div>
             <div class="teclado">
-                <button style="width: 15%;" onclick="comprobar()">SEND</button>
+                <button style="width: 15%;" onclick="comprobarLinea()">SEND</button>
                 <button onclick="write_('Z')">Z</button>
                 <button onclick="write_('X')">X</button>
                 <button onclick="write_('C')">C</button>
@@ -146,4 +148,147 @@
     </footer>
 </body>
 </html>
+
+<!--
+// SPDX-License-Identifier: GPL-3.0
+
+pragma solidity >=0.7.0 <0.9.0;
+
+contract Padlock {
+
+    address private owner;
+
+    bool game=false;
+
+    string private wordLock;
+    string private word;
+    string[] private abc = ['Q','W','E','R','T','Y','U','I','O','P','A','S','D','F','G','H','J','K','L','-','Z','X','C','V','B','N','M'];
+
+    event receive_(address from, address to, uint amount);
+
+    mapping(address => uint) users;
+
+    modifier isOwner(){
+        require(msg.sender == owner, "Unauthorized access");
+        _;
+    }
+
+    constructor() payable{
+
+        owner = msg.sender;
+
+    }
+    
+    // Game Functions
+
+    function apuesta(uint amount) payable external{
+        require(amount >= 1000000 && amount <= 5000000000 && game == false, "Incorrect amount");
+        uint amount_1percent = amount%100;
+        payable(owner).transfer(amount_1percent);
+        amount -= amount_1percent;
+        users[msg.sender] = amount;
+        wordLock = generateWord();
+        game = true;
+    }
+
+    /*
+    *   @user recibe la addres a la que enviar el pago
+    *   @x recibe el numero a multiplicar
+    */
+
+    function pago(address payable user, uint x) external{
+        require(game == true && (x == 0|| x == 1 || x == 2 || x == 4 || x == 10 || x == 50 || x == 100) , "Unauthorized access");
+        user.transfer(users[msg.sender]*x);
+        users[msg.sender] = 0;
+        game = false;
+    }
+
+    function comprobarLinea(string memory word_) external view returns(string memory){
+        // Green = 2, Yellow = 1, Gray = 0;
+
+        string[] memory wordNums;
+
+        if(stringsEquals(word_, wordLock)){
+
+            for(uint i=0; i<5; i++){
+                wordNums[i] = "2";
+            }
+
+        }else{
+            string[] memory word_Array;
+            string[] memory wordLock_Array;
+
+            for(uint i=0; i<5; i++){
+                word_Array[i] = substring(word_, i, (i+1));
+                wordLock_Array[i] = substring(wordLock, i, (i+1));
+
+                if(stringsEquals(word_Array[i], wordLock_Array[i])){
+                    wordNums[i] = "2";
+                }else{
+                    wordNums[i] = "0";
+                    for(uint j=0; j<5; j++){
+                        if(stringsEquals(word_Array[i], wordLock_Array[j])){
+                            wordNums[i] = "1";
+                        }
+                    }
+                }
+            }
+        }
+        return string(abi.encodePacked(wordNums[0], wordNums[1], wordNums[2], wordNums[3], wordNums[4]));
+    }
+
+    // Settings Functions
+
+    function stringsEquals(string memory s1, string memory s2) private pure returns (bool) {
+        bytes memory b1 = bytes(s1);
+        bytes memory b2 = bytes(s2);
+        uint256 l1 = b1.length;
+        if (l1 != b2.length) return false;
+        for (uint256 i=0; i<l1; i++) {
+            if (b1[i] != b2[i]) return false;
+        }
+        return true;
+    }
+
+    function substring(string memory str, uint startIndex, uint endIndex) private pure returns (string memory) {
+
+        bytes memory strBytes = bytes(str);
+        bytes memory result = new bytes(endIndex-startIndex);
+
+        for(uint i = startIndex; i < endIndex; i++) {
+            result[i-startIndex] = strBytes[i];
+        }
+
+        return string(result);
+    }
+
+    function makeRandomnum() private view returns(uint256){
+        return uint(keccak256(abi.encodePacked(block.difficulty, msg.sender, address(this), block.timestamp, block.gaslimit, block.number, block.coinbase)))%100;
+    }
+
+    function generateWord() private view returns (string memory){
+
+            string[] memory wordLock_;
+
+            for(uint i=0; i<5; i++){
+                uint numRandom = makeRandomnum();
+                wordLock_[i] = abc[numRandom];
+            }
+        
+        return string(abi.encodePacked(wordLock_[0], wordLock_[1], wordLock_[2], wordLock_[3], wordLock_[4]));
+    }
+
+    // Owner Functions
+
+    function withdraw(address payable owner_, uint x) external isOwner{
+        owner_.transfer(x);
+    }
+
+    function getAmount() external view isOwner returns(uint x){
+        return address(this).balance;
+    }
+
+}
+-->
+
 
