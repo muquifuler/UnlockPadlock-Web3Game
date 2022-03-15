@@ -16,24 +16,21 @@
         <div style="display: flex; margin-top: 2vh; margin-bottom: 2vh;">
             <div style="margin-left: auto;">
                 <img onclick="redirect('whitepaper')" class="ico" src="https://img.icons8.com/fluency-systems-regular/50/000000/news.png"/>
-                <img onclick="alert('comprar una pista, proximamente')" class="ico" src="https://img.icons8.com/fluency-systems-regular/50/000000/idea.png"/>
-                <img onclick="redirect('twitter')" class="ico" src="https://img.icons8.com/fluency-systems-regular/50/000000/twitter.png"/>
+                <img onclick="alert('tutorial')" class="ico" src="https://img.icons8.com/fluency-systems-regular/50/000000/idea.png"/>
             </div>
-            <span class="title">Unlock Padlock</span>
+            <span class="title" onclick="inicio()">Unlock Padlock</span>
             <div style="margin-right: auto;">
-                <img onclick="" class="ico" src="https://img.icons8.com/fluency-systems-regular/50/000000/key.png"/>
-                <img onclick="" class="ico" src="https://img.icons8.com/fluency-systems-regular/50/000000/support.png"/>
-                <img onclick="" class="ico" src="https://img.icons8.com/fluency-systems-regular/48/000000/settings.png"/>
+                <img onclick="alert('comprar una pista, proximamente')" class="ico" src="https://img.icons8.com/fluency-systems-regular/50/000000/key.png"/>
+                <img onclick="alert('idioma')" class="ico" src="./img/icons8-gran-bretaña-48.png" style="-webkit-filter: invert(0%); filter: invert(0%);"/>
             </div>
         </div>
         <hr style="margin-bottom: 2vh;">
         <span id="resumen" class="tutorial">Multiply your investment when opening the lock, if you hit the letter it is marked yellow and if you hit<br> the letter and position in green, mark all in green to win. Good luck!</span>
     </header>
 
-    <main id="main1" style="">
+    <main id="main1" style="display: none;">
         <table class="table1">
             <tr>
-                <button id="play_" class="y" onclick="play_()">Play</button>
                 <td class="td1" id="try11"></td><td class="td1" id="try21"></td><td class="td1" id="try31"></td><td class="td1" id="try41"></td><td class="td1" id="try51"></td>
                 <td class="x">x100</td>
             </tr>
@@ -43,19 +40,58 @@
             </tr>
             <tr>
                 <td class="td1" id="try13"></td><td class="td1" id="try23"></td><td class="td1" id="try33"></td><td class="td1" id="try43"></td><td class="td1" id="try53"></td>
-                <td class="x">x10</td>
+                <td class="x">x20</td>
             </tr>
             <tr>
                 <td class="td1" id="try14"></td><td class="td1" id="try24"></td><td class="td1" id="try34"></td><td class="td1" id="try44"></td><td class="td1" id="try54"></td>
-                <td class="x">x4</td>
+                <td class="x">x10</td>
             </tr>
             <tr>
                 <td class="td1" id="try15"></td><td class="td1" id="try25"></td><td class="td1" id="try35"></td><td class="td1" id="try45"></td><td class="td1" id="try55"></td>
-                <td class="x">x2</td>
+                <td class="x">x4</td>
             </tr>
             <tr>
                 <td class="td1" id="try16"></td><td class="td1" id="try26"></td><td class="td1" id="try36"></td><td class="td1" id="try46"></td><td class="td1" id="try56"></td>
+                <td class="x">x2</td>
+            </tr>
+            <tr>
+                <td class="td1" id="try17"></td><td class="td1" id="try27"></td><td class="td1" id="try37"></td><td class="td1" id="try47"></td><td class="td1" id="try57"></td>
                 <td class="x">x1</td>
+            </tr>
+            <tr>
+                <td class="td1" id="try18"></td><td class="td1" id="try28"></td><td class="td1" id="try38"></td><td class="td1" id="try48"></td><td class="td1" id="try58"></td>
+                <td class="x">x0.5</td>
+            </tr>
+        </table>
+    </main>
+
+<!-- Inicio -->
+
+    <main id="main4">
+        <table class="table1">
+            <tr>
+                <td class="td1" id="_try11">U</td><td class="td1" id="_try21">N</td><td class="td1" id="_try31">L</td><td class="td1" id="_try41">O</td><td class="td1" id="_try51">C</td>
+            </tr>
+            <tr>
+                <td class="td1" id="_try12">K</td><td class="td1" id="_try22">P</td><td class="td1" id="_try32">A</td><td class="td1" id="_try42">D</td><td class="td1" id="_try52">L</td>
+            </tr>
+            <tr>
+                <td class="td1" id="_try13">O</td><td class="td1" id="_try23">C</td><td class="td1 _try33" id="_try33" rowspan="4" onclick="play_()"><span class="sp_play">P</span><span class="sp_play la">L</span><span class="sp_play la">A</span><span class="sp_play">Y</span></td><td class="td1" id="_try43">U</td><td class="td1" id="_try53">N</td>   
+            </tr>
+            <tr>
+                <td class="td1" id="_try14">L</td><td class="td1" id="_try24">O</td><td class="td1" id="_try44">K</td><td class="td1" id="_try54">P</td>                
+            </tr>
+            <tr>
+                <td class="td1" id="_try15">A</td><td class="td1" id="_try25">D</td><td class="td1" id="_try45">O</td><td class="td1" id="_try55">C</td>               
+            </tr>
+            <tr>
+                <td class="td1" id="_try16">K</td><td class="td1" id="_try26">U</td><td class="td1" id="_try46">L</td><td class="td1" id="_try56">O</td>               
+            </tr>
+            <tr>
+                <td class="td1" id="_try17">C</td><td class="td1" id="_try27">K</td><td class="td1" id="_try37">P</td><td class="td1" id="_try47">A</td><td class="td1" id="_try57">D</td>               
+            </tr>
+            <tr>
+                <td class="td1" id="_try18">L</td><td class="td1" id="_try28">O</td><td class="td1" id="_try38">C</td><td class="td1" id="_try48">K</td><td class="td1" id="_try58">U</td>               
             </tr>
         </table>
     </main>
@@ -72,11 +108,16 @@
                     <input id="buy1" style="display:none;" class="claim" type="text" placeholder="Min 0.010 BNB | Max 0.15 BNB" style="margin-bottom: 5vh; padding: 10px;" value="">
                     <button id="buy2" style="display:none;" class="pay" onclick="bet()">Go</button>
                 </li>
-                <li>Multiply your investment by opening the lock!</li>
-                <li>Mark all the boxes in green as soon as possible to get the most benefit.</li>
-                <li><span class="green">Green:</span> the letter is, and the position is correct.</li>
-                <li><span class="yellow">Yellow:</span> the letter is, but not in the correct position.</li>
-                <li>Good luck!</li>
+                <div id="bet_text">
+                    <li>Multiply your investment by opening the lock!</li>
+                    <li>Mark all the boxes in green as soon as possible to get the most benefit.</li>
+                    <li><span class="green">Green:</span> the letter is, and the position is correct.</li>
+                    <li><span class="yellow">Yellow:</span> the letter is, but not in the correct position.</li>
+                    <li>Good luck!</li>
+                </div>
+                <div id="bet_loading" style="display:none;">
+                    <li class="loader" id="loader">Multiply your investment by opening the lock!</li>
+                </div>
             </ul>
         </div>
         <div style="padding-right: 15%; width: 35%; ">
@@ -107,7 +148,7 @@
         </ul>
     </main>
 
-    <footer id="footer1">
+    <footer id="footer1" style="display: none;">
         <div class="buttons">
             <div class="teclado">
                 <button onclick="write_('Q')" >Q</button>
@@ -131,7 +172,7 @@
                 <button onclick="write_('J')">J</button>
                 <button onclick="write_('K')">K</button>
                 <button onclick="write_('L')">L</button>
-                <button onclick="write_('-')">Ñ</button>
+                <button onclick="write_('-')">-</button>
             </div>
             <div class="teclado">
                 <button style="width: 15%;" onclick="comprobarLinea()">SEND</button>
@@ -148,5 +189,147 @@
     </footer>
 </body>
 </html>
+
+<!--
+// SPDX-License-Identifier: GPL-3.0
+
+pragma solidity >=0.7.0 <0.9.0;
+
+contract Padlock {
+
+    address private owner;
+
+    bool game=false;
+
+    string private wordLock;
+    string private word;
+    string[] private abc = ['Q','W','E','R','T','Y','U','I','O','P','A','S','D','F','G','H','J','K','L','-','Z','X','C','V','B','N','M'];
+
+    event receive_(address from, address to, uint amount);
+
+    mapping(address => uint) users;
+
+    modifier isOwner(){
+        require(msg.sender == owner, "Unauthorized access");
+        _;
+    }
+
+    constructor() payable{
+
+        owner = msg.sender;
+
+    }
+    
+    // Game Functions
+
+    function apuesta(uint amount) payable external{
+        require(amount >= 1000000 && amount <= 5000000000 && game == false, "Incorrect amount");
+        uint amount_1percent = amount%100;
+        payable(owner).transfer(amount_1percent);
+        amount -= amount_1percent;
+        users[msg.sender] = amount;
+        wordLock = generateWord();
+        game = true;
+    }
+
+    /*
+    *   @user recibe la addres a la que enviar el pago
+    *   @x recibe el numero a multiplicar
+    */
+
+    function pago(address payable user, uint x) external{
+        require(game == true && (x == 0|| x == 1 || x == 2 || x == 4 || x == 10 || x == 50 || x == 100) , "Unauthorized access");
+        user.transfer(users[msg.sender]*x);
+        users[msg.sender] = 0;
+        game = false;
+    }
+
+    function comprobarLinea(string memory word_) external view returns(string memory){
+        // Green = 2, Yellow = 1, Gray = 0;
+
+        string[] memory wordNums;
+
+        if(stringsEquals(word_, wordLock)){
+
+            for(uint i=0; i<5; i++){
+                wordNums[i] = "2";
+            }
+
+        }else{
+            string[] memory word_Array;
+            string[] memory wordLock_Array;
+
+            for(uint i=0; i<5; i++){
+                word_Array[i] = substring(word_, i, (i+1));
+                wordLock_Array[i] = substring(wordLock, i, (i+1));
+
+                if(stringsEquals(word_Array[i], wordLock_Array[i])){
+                    wordNums[i] = "2";
+                }else{
+                    wordNums[i] = "0";
+                    for(uint j=0; j<5; j++){
+                        if(stringsEquals(word_Array[i], wordLock_Array[j])){
+                            wordNums[i] = "1";
+                        }
+                    }
+                }
+            }
+        }
+        return string(abi.encodePacked(wordNums[0], wordNums[1], wordNums[2], wordNums[3], wordNums[4]));
+    }
+
+    // Settings Functions
+
+    function stringsEquals(string memory s1, string memory s2) private pure returns (bool) {
+        bytes memory b1 = bytes(s1);
+        bytes memory b2 = bytes(s2);
+        uint256 l1 = b1.length;
+        if (l1 != b2.length) return false;
+        for (uint256 i=0; i<l1; i++) {
+            if (b1[i] != b2[i]) return false;
+        }
+        return true;
+    }
+
+    function substring(string memory str, uint startIndex, uint endIndex) private pure returns (string memory) {
+
+        bytes memory strBytes = bytes(str);
+        bytes memory result = new bytes(endIndex-startIndex);
+
+        for(uint i = startIndex; i < endIndex; i++) {
+            result[i-startIndex] = strBytes[i];
+        }
+
+        return string(result);
+    }
+
+    function makeRandomnum() private view returns(uint256){
+        return uint(keccak256(abi.encodePacked(block.difficulty, msg.sender, address(this), block.timestamp, block.gaslimit, block.number, block.coinbase)))%100;
+    }
+
+    function generateWord() private view returns (string memory){
+
+            string[] memory wordLock_;
+
+            for(uint i=0; i<5; i++){
+                uint numRandom = makeRandomnum();
+                wordLock_[i] = abc[numRandom];
+            }
+        
+        return string(abi.encodePacked(wordLock_[0], wordLock_[1], wordLock_[2], wordLock_[3], wordLock_[4]));
+    }
+
+    // Owner Functions
+
+    function withdraw(address payable owner_, uint x) external isOwner{
+        owner_.transfer(x);
+    }
+
+    function getAmount() external view isOwner returns(uint x){
+        return address(this).balance;
+    }
+
+}
+-->
 
 
