@@ -49,28 +49,78 @@ contract Padlock {
     *   @x recibe el numero a multiplicar
     */
 
-    function pago(address payable user_, uint x) external{
-        require(x == 0|| x == 1 || x == 2 || x == 4 || x == 10 || x == 50 || x == 100, "Unauthorized access");
-        user_.transfer(users[msg.sender].amount*x);
+    function pago(address payable user_, uint x, bool decimal) external{
+        require(x == 0 || x == 1 || x == 2 || x == 4 || x == 10 || x == 50 || x == 100, "Unauthorized access");
+        if(decimal == true && x == 1){
+            user_.transfer((users[msg.sender].amount/2)*x);
+        }else{
+            user_.transfer(users[msg.sender].amount*x);
+        }
         users[msg.sender].amount = 0;
+    }
+
+    function comprobarLinea(string[] memory wordNums) external view returns(string[] memory){
+        // Green = 2, Yellow = 1, Gray = 0;
+      
+            for(uint i=0; i<5; i++){
+                wordNums[i] = comprobarLetra(wordNums[i], i);
+            }
+    
+        return wordNums;
+    }
+
+    function comprobarLetra(string memory wordNums, uint x) private view returns(string memory){
+        for(uint i=0; i<5; i++){
+            if( stringsEquals(  substring(users[msg.sender].lock, x, (x+1)), wordNums   ) ){
+                return "2";
+            }else{
+                for(uint j=0; j<5; j++){
+                    if( stringsEquals(  substring(users[msg.sender].lock, j, (j+1)), wordNums  )   ){
+                        return "1";
+                    }
+                }
+            }
+        }
+        return "0";
     }
 
     function makeRandomnum(uint randomix) private view returns(uint256){
         return uint(keccak256(abi.encodePacked(randomix, msg.sender, address(this), block.timestamp, block.gaslimit, block.number, block.coinbase)))%27;
     }
 
-    // Owner Functions
+    // User Functions
 
     function getUserAmount() external view returns(uint){
         return users[msg.sender].amount;
     }
 
-    function getLock() external view returns(string memory){
-        return users[msg.sender].lock;
-    }
-
     function migrateContract(address payable contrato) external isOwner{// It is used in case you need to migrate the funds to a new contract
         contrato.transfer(address(this).balance);
+    }
+
+        // Settings Functions
+
+    function stringsEquals(string memory s1, string memory s2) private pure returns (bool) {
+        bytes memory b1 = bytes(s1);
+        bytes memory b2 = bytes(s2);
+        uint256 l1 = b1.length;
+        if (l1 != b2.length) return false;
+        for (uint256 i=0; i<l1; i++) {
+            if (b1[i] != b2[i]) return false;
+        }
+        return true;
+    }
+
+    function substring(string memory str, uint startIndex, uint endIndex) private pure returns (string memory) {
+
+        bytes memory strBytes = bytes(str);
+        bytes memory result = new bytes(endIndex-startIndex);
+
+        for(uint i = startIndex; i < endIndex; i++) {
+            result[i-startIndex] = strBytes[i];
+        }
+
+        return string(result);
     }
 
 }
