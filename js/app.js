@@ -252,26 +252,12 @@ const ABI = [
                 window.contract = await loadContract();
                 var account = await window.web3.eth.getAccounts();
             }
-/*
-                function updateStatus(status) {
-                    const statusEl = document.getElementById('status');
-                    statusEl.innerHTML = status;
-                    console.log(status);
-                }*/
 
             load();
             async function getCurrentAccount() {
                 const accounts = await window.web3.eth.getAccounts();
                 return accounts[0];
             }
-/*
-var myContract = new web3.eth.Contract(ABI, '0x8d557f858afAb0822a6745BCdC37c3d843B5C6DF');
-
-
-
-    myContract.methods.getMiBeneficioBomb().call()
-        .then(console.log);console.log(1);
-*/  
                 async function bet() { // Bet
                         const cant = document.getElementById('buy1').value;
                         const cant_ = cant * 1000000000000000000;
@@ -369,14 +355,3 @@ var myContract = new web3.eth.Contract(ABI, '0x8d557f858afAb0822a6745BCdC37c3d84
                         }
                         
                 }
-/*
-                async function getLock(){
-                    const account = await getCurrentAccount();
-                    const coolNumber = await window.contract.methods.getLock().call({ from: account });
-                    let array = [];
-                    for(let i=0; i<65; i++){
-                        array[i] = SHA256.generate(coolNumber.substring(i, (i+1)));
-                    }
-                    return array;
-                }
-*/
