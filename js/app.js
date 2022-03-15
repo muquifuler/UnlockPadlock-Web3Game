@@ -8,7 +8,7 @@ let delete_k;
 let btn_play = true;
 
 let active_game = false;
-
+let decimal = false;
 let pgo = 0;
 
 function write_(letra){
@@ -33,9 +33,11 @@ function write_(letra){
 function play_(){
     document.getElementById('main3').style = 'display: none;';
     document.getElementById('main1').style = 'display: none;';
-    document.getElementById('footer1').style = 'display: none;';
+    document.getElementById('main4').style = 'display: none;';
     document.getElementById('resumen').style = 'display: none;';
     document.getElementById('main2').style = 'display: flex;';
+    document.getElementById('bet_text').style = "display:block;";
+    document.getElementById('bet_loading').style = "display:none;";
     clean();
 }
 
@@ -58,7 +60,6 @@ function fin(exito, bnb){
 
 function newGame(){
     document.getElementById('main3').style = 'display: none;';
-    document.getElementById('play_').style = 'display: none;';
     document.getElementById('main2').style = 'display: none;';
     document.getElementById('main1').style = 'display: flex;';
     document.getElementById('footer1').style = 'display: block;';
@@ -69,11 +70,22 @@ function newGame(){
 
 }
 
+function inicio(){
+    document.getElementById('main4').style = 'display: flex;';
+    document.getElementById('main3').style = 'display: none;';
+    document.getElementById('main2').style = 'display: none;';
+    document.getElementById('main1').style = 'display: none;';
+    document.getElementById('footer1').style = 'display: none;';
+    document.getElementById('resumen').style = 'display: none;';
+
+    clean();
+}
+
 function clean(){
     try_ = ['','','','',''];
     v = 1;
 
-    for(let i=1; i<7; i++){
+    for(let i=1; i<9; i++){
         for(let k=1; k<6; k++){
             document.getElementById('try'.concat(k).concat(i)).innerHTML = '';
             document.getElementById('try'.concat(k).concat(i)).style = 'border: solid 2px #404040; background-color:transparent;';
@@ -92,9 +104,7 @@ function borrar(){
 }
 
 function redirect(where){
-    if(where == 'twitter'){
-        window.location.href = "https://twitter.com/auto_token";
-    }else if(where == 'whitepaper'){
+    if(where == 'whitepaper'){
         window.location.href = "https://unlockpadlock.gitbook.io/unlock-padlock/";
     }
 }
@@ -156,13 +166,19 @@ const ABI = [
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "getLock",
+		"inputs": [
+			{
+				"internalType": "string[]",
+				"name": "wordNums",
+				"type": "string[]"
+			}
+		],
+		"name": "comprobarLinea",
 		"outputs": [
 			{
-				"internalType": "string",
+				"internalType": "string[]",
 				"name": "",
-				"type": "string"
+				"type": "string[]"
 			}
 		],
 		"stateMutability": "view",
@@ -205,6 +221,11 @@ const ABI = [
 				"internalType": "uint256",
 				"name": "x",
 				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "decimal",
+				"type": "bool"
 			}
 		],
 		"name": "pago",
@@ -213,7 +234,7 @@ const ABI = [
 		"type": "function"
 	}
 ];
-            const contractAddress = '0x7607633a26aaBC427f9197b0FDEECFcAC724Fdf3';
+            const contractAddress = '0xC9bD4C69C522Ae750701567D84f3af83a72771C6';
             
             async function loadContract() {
                 var MyContract = new window.web3.eth.Contract(ABI, contractAddress);
@@ -256,8 +277,9 @@ var myContract = new web3.eth.Contract(ABI, '0x8d557f858afAb0822a6745BCdC37c3d84
                         const cant_ = cant * 1000000000000000000;
                         if(cant_ >= 10000000000000000 && cant_ <= 150000000000000000){
                             const account = await getCurrentAccount();
+                            document.getElementById('bet_text').style = "display:none;";
+                            document.getElementById('bet_loading').style = "display:block;";
                             await window.contract.methods.bet().send({ from: account, value: cant_});
-                            alert(cant_);
                             newGame();
                         }else{
                             alert("Cantidad erronea");
@@ -266,90 +288,95 @@ var myContract = new web3.eth.Contract(ABI, '0x8d557f858afAb0822a6745BCdC37c3d84
 
                 async function pago() { //Pago
                         const account = await getCurrentAccount();
-                        await window.contract.methods.pago(account, pgo).send({ from: account });
+                        await window.contract.methods.pago(account, pgo, decimal).send({ from: account });
                         document.getElementById('bnb_claim').innerHTML = "0 BNB";
+                }
+
+                async function res(account) { //Pago
+                    const res = await window.contract.methods.comprobarLinea(try_).call({ from: account });
+                    return res;
                 }
 
                 async function comprobarLinea() { //Comprobar
                         pgo = 0;
-                        if(try_[0] == '' || try_[1] == '' || try_[2] == '' || try_[3] == '' || try_[4] == ''){
-                            // Faltan letras
-                        }else{
-                            let x = 1;
+                        const account = await getCurrentAccount();
+                        let res_ = await res(account);
+                        let x = 1;
+                        alert(res_[0]);
 
-                            for(let i=0; i<try_.length; i++){
-                                try_[i] = SHA256.generate(try_[i]);
+                        for(let i=0; i<try_.length; i++){
+                            if(res_[i] == "2"){
+                                document.getElementById('try'.concat(x).concat(v)).style = 'background-color:#67b956; border: solid 2px #67b956;';
+                            }else if(res_[i] == "1"){
+                                document.getElementById('try'.concat(x).concat(v)).style = 'background-color:#d4d668; border: solid 2px #d4d668;';
+                            }else if(res_[i] == "0"){
+                                document.getElementById('try'.concat(x).concat(v)).style = 'background-color:#212121; border: solid 2px #212121;';
                             }
-
-                            for(let i=0; i<try_.length; i++){
-
-                                let w = await getLock();
-
-                                if(w[i] == try_[i]){
-                                    document.getElementById('try'.concat(x).concat(v)).style = 'background-color:#67b956; border: solid 2px #67b956;';
-                                }else{
-                                    document.getElementById('try'.concat(x).concat(v)).style = 'background-color:#212121; border: solid 2px #212121;';
-                                    for(let j=0; j<try_.length; j++){
-                                        if(try_[i] == w[j]){
-                                            document.getElementById('try'.concat(x).concat(v)).style = 'background-color:#d4d668; border: solid 2px #d4d668;';
-                                        }
-                                    }
-                                }
-
-                                if((try_[0] == w[0] && try_[1] == w[1] && try_[2] == w[2] && try_[3] == w[3] && try_[4] == w[4])==true){
-
-                                    if(v == 1){
-                                        pgo = 100; 
-                                    }else if(v == 2){
-                                        pgo = 50;
-                                    }else if(v == 3){
-                                        pgo = 10;
-                                    }else if(v == 4){
-                                        pgo = 4;
-                                    }else if(v == 5){
-                                        pgo = 2;
-                                    }else if(v == 6){
-                                        pgo = 1;
-                                    }
-
-                                    const account = await getCurrentAccount();
-                                    const amount = await window.contract.methods.getUserAmount().call({ from: account });
-                                    amount_ = amount*pgo;
-
-                                    setTimeout(function(){
-                                        fin(true, amount_);
-                                    },3000);
-                                    break;
-                                    // Juego ganado
-                                }else{
-                                    if(v == 6 && i == 4){
-
-                                        setTimeout(function(){
-                                            fin(false, 0);
-                                        },3000);
-
-                                        break;
-                                        // Juego perdido
-                                    }
-                                }
-
-                                x++;
-                                
-                            }
-                            v++;
-                
-                            for(let i=0; i<try_.length; i++){
-                                try_[i] = '';
-                            }
+                            x++;
                         }
-                }
 
+                        if(res_[0] == "2" && res_[1] == "2" && res_[2] == "2" && res_[3] == "2" && res_[4] == "2"){
+                            if(v == 1){
+                                decimal = false;
+                                pgo = 100; 
+                            }else if(v == 2){
+                                decimal = false;
+                                pgo = 50;
+                            }else if(v == 3){
+                                decimal = false;
+                                pgo = 20;
+                            }else if(v == 4){
+                                decimal = false;
+                                pgo = 10;
+                            }else if(v == 5){
+                                decimal = false;
+                                pgo = 4;
+                            }else if(v == 6){
+                                decimal = false;
+                                pgo = 2;
+                            }else if(v == 7){
+                                decimal = false;
+                                pgo = 1;
+                            }else if(v == 8){
+                                pgo = 0.5;
+                                decimal = true;
+                            }
+
+                            const amount = await window.contract.methods.getUserAmount().call({ from: account });
+                            if(pgo == 0.5){
+                                amount_ = (amount/2)*pgo;
+                                pgo=1;
+                            }else{
+                                amount_ = amount*pgo;
+                            }
+                            setTimeout(function(){
+                                fin(true, amount_, decimal);
+                            },3000);
+                            // Juego ganado
+                        }
+
+                        if(!(res_[0] == "2" && res_[1] == "2" && res_[2] == "2" && res_[3] == "2" && res_[4] == "2") && v == 8){
+                            setTimeout(function(){
+                                fin(false, 0, decimal);
+                            },3000);
+                            // Juego perdido
+                        }
+                        
+                        v++;
+            
+                        for(let i=0; i<try_.length; i++){
+                            try_[i] = '';
+                        }
+                        
+                }
+/*
                 async function getLock(){
                     const account = await getCurrentAccount();
                     const coolNumber = await window.contract.methods.getLock().call({ from: account });
                     let array = [];
-                    for(let i=0; i<5; i++){
+                    for(let i=0; i<65; i++){
                         array[i] = SHA256.generate(coolNumber.substring(i, (i+1)));
                     }
                     return array;
                 }
+*/
