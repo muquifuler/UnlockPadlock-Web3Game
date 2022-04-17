@@ -1,5 +1,5 @@
 # UnlockPadlock v1.0
- Guess the secret combination to win! #Web3 #PlayFi for Binance Smart Chain.
+ Guess the secret combination to win! #Web3 #PlayFi for Binance Smart Chain TESTNET.
  
 Alpha 0.9v -> https://autotoken.tech/UnlockPadlock/index.php
 
