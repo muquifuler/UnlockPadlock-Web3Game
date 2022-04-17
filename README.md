@@ -1,4 +1,4 @@
-# UnlockPadlock v1.0
+# UnlockPadlock
  Guess the secret combination to win! #Web3 #GameFi for Binance Smart Chain TESTNET.
  
 Alpha 0.9v -> https://autotoken.tech/UnlockPadlock/index.php
