@@ -1,7 +1,7 @@
 # UnlockPadlock
  Guess the secret combination to win! #Web3 #GameFi for Binance Smart Chain TESTNET.
  
-Alpha 0.9v -> https://autotoken.tech/UnlockPadlock/index.php
+0.9v -> https://autotoken.tech/UnlockPadlock/index.php
 
 Blockchain game based on wordle with the fundamental characteristic of not paying or using functions that change state variables during the game.
 
