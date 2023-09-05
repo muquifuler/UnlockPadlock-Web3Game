@@ -9,7 +9,7 @@ ATTENTION! you do not have to guess a word but a combination of characters, the 
 
 # Why on the testnet?
 
-Currently it is possible to do infinite checks by executing the correct function in the console, I made a new version with a centralized database that checked a hash with the smart contract... in short I was not happy with the centralization and the unnecessary complication that it was, so So I decided to leave it like this and continue with new projects.
+In short i was not happy with the centralization and the unnecessary complication that it was, so So I decided to leave it like this and continue with new projects.
 
 ![unlock](https://user-images.githubusercontent.com/57547835/163734257-91f940d0-2960-4283-9839-b8d162086d3c.png)
 ![33](https://user-images.githubusercontent.com/57547835/171085253-b439824c-aad4-4480-a968-2801dbec9344.png)
